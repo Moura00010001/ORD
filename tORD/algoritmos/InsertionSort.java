@@ -109,4 +109,22 @@ public class InsertionSort{
 		
 	}
 	
+	public static void algoritmoInsertionSort(long[] A, int inf, int nElem){
+		
+		int i, j;
+		long aux;
+
+		for(i = inf + 1; i < nElem; i++){
+			
+			aux = A[i];
+			
+			for(j = i - 1; j >= 0 && aux < A[j]; j--)
+				A[j + 1] = A[j];
+			
+			A[j + 1] = aux;
+			
+		}	
+		
+	}
+	
 }
