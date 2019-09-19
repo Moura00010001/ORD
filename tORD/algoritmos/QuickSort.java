@@ -16,7 +16,7 @@ public class QuickSort{
 	
 	public QuickSort(String nomeArquivo){
 		carregarArquivoParaVetor(nomeArquivo);
-		algoritmoQuickSort3(0, arr.length - 1);
+		algoritmoQuickSort2(0, arr.length - 1);
 	}
 	
 	public void carregarArquivoParaVetor(String nomeArquivo){
@@ -82,6 +82,28 @@ public class QuickSort{
 		arr[dest] = aux;
 		
 	}
+	
+	private static int mediana(long[] arr, int inf, int sup){
+		
+		int mediana;
+		
+		long[] aux = new long[(sup - inf) + 1];
+		for(int i = 0, j = inf; j < sup; i++, j++)
+			aux[i] = arr[j];
+		
+		InsertionSort.algoritmoInsertionSort(aux, 0, aux.length);
+		
+		mediana = aux.length / 2; 
+		
+		for(int k = inf; k < sup; k++)
+			if(arr[k] == aux[mediana]){
+				mediana = k;
+				break;
+			}
+		
+		return mediana;
+		
+	}
 		
 	private void algoritmoQuickSort(int inf, int sup){
 		
@@ -94,7 +116,7 @@ public class QuickSort{
 
 		pivo = inf;
 
-	    for(esq = inf, dir = sup; esq < dir; ){
+	    for(esq = inf, dir = sup; ; ){
 	    	/* Enquanto os elementos forem menores do que */
 	        /* o pivô, incrementa-se o índice esquerdo    */
 	        while(arr[esq] <= arr[pivo] && esq < sup)
@@ -136,7 +158,7 @@ public class QuickSort{
 
 		pivo = inf;
 
-	    for(esq = inf, dir = sup; esq < dir; ){
+	    for(esq = inf, dir = sup; ; ){
 	    	/* Enquanto os elementos forem menores do que */
 	        /* o pivô, incrementa-se o índice esquerdo    */
 	        while(A[esq] <= A[pivo] && esq < sup)
@@ -169,8 +191,8 @@ public class QuickSort{
 	
 	private void algoritmoQuickSort2(int inf, int sup){
 
-		int esq, dir, pivo, i,
-	    media = 0, count = 7, nElem = sup - inf + 1;  
+		int esq, dir, pivo,
+	    mediana, nElem = sup - inf + 1;  
 		
 		/* Se a tabela está vazia ou contém apenas */
 		/* um elemento, ela já está ordenada       */
@@ -179,17 +201,14 @@ public class QuickSort{
 		
 		if(nElem >= 7){
 			
-			for(i = inf; count > 0; i++, count--)
-				media += i;
+			mediana = mediana(arr, inf, inf + 7);
 			
-			media /= 7;
-			
-			trocaElemento(arr, inf, media);			
+			trocaElemento(arr, inf, mediana);			
 		}	
 
 		pivo = inf;
 
-	    for(esq = inf, dir = sup; esq < dir; ){
+	    for(esq = inf, dir = sup; ; ){
 	    	/* Enquanto os elementos forem menores do que */
 	        /* o pivô, incrementa-se o índice esquerdo    */
 	        while(arr[esq] <= arr[pivo] && esq < sup)
@@ -222,8 +241,8 @@ public class QuickSort{
 	
 	public static void algoritmoQuickSort2(long[] A, int inf, int sup){
 		
-		int esq, dir, pivo, i,
-	    media = 0, count = 7, nElem = sup - inf + 1;
+		int esq, dir, pivo,
+	    mediana, nElem = sup - inf + 1;  
 		
 		/* Se a tabela está vazia ou contém apenas */
 		/* um elemento, ela já está ordenada       */
@@ -232,17 +251,14 @@ public class QuickSort{
 		
 		if(nElem >= 7){
 			
-			for(i = inf; count > 0; i++, count--)
-				media += i;
+			mediana = mediana(A, inf, inf + 7);
 			
-			media /= 7;
-			
-			trocaElemento(A, inf, media);			
+			trocaElemento(A, inf, mediana);			
 		}	
 
 		pivo = inf;
 
-	    for(esq = inf, dir = sup; esq < dir; ){
+	    for(esq = inf, dir = sup; ; ){
 	    	/* Enquanto os elementos forem menores do que */
 	        /* o pivô, incrementa-se o índice esquerdo    */
 	        while(A[esq] <= A[pivo] && esq < sup)
@@ -285,7 +301,7 @@ public class QuickSort{
 	   /* Se o tamanho da tabela ficar abaixo do ponto de */
 	   /* corte, chama InsertionSort() para ordená-la     */
 	   if(sup - inf + 1 <= PONTO_DE_CORTE)
-		   InsertionSort.algoritmoInsertionSort(arr, inf, sup - inf + 1);	      
+		   InsertionSort.algoritmoInsertionSort(arr, inf, inf + 3);	      
 	   else{
 	      /*                                             */
 	      /* Escolhe o pivô usando mediana de três. Além */
@@ -306,12 +322,12 @@ public class QuickSort{
 	     /* Ordena o elemento do meio e o último elemento */
 	     if(arr[sup] < arr[meio])
 	         trocaElemento(arr, meio, sup);
-
+	     
 	     trocaElemento(arr, meio, inf);
-
+	     
 	     pivo = inf;
 
-	    for(esq = inf, dir = sup; esq < dir; ){
+	    for(esq = inf, dir = sup - 1; ; ){
 	    	/* Enquanto os elementos forem menores do que */
 	        /* o pivô, incrementa-se o índice esquerdo    */
 	        while(arr[esq] <= arr[pivo] && esq < sup)
@@ -356,7 +372,7 @@ public class QuickSort{
 	   /* Se o tamanho da tabela ficar abaixo do ponto de */
 	   /* corte, chama InsertionSort() para ordená-la     */
 	   if(sup - inf + 1 <= PONTO_DE_CORTE)
-	      InsertionSort.algoritmoInsertionSort(A, inf, sup - inf + 1);
+	      InsertionSort.algoritmoInsertionSort(A, inf, inf + 3);
 	   else{
 	      /*                                             */
 	      /* Escolhe o pivô usando mediana de três. Além */
@@ -377,12 +393,12 @@ public class QuickSort{
 	     /* Ordena o elemento do meio e o último elemento */
 	     if(A[sup] < A[meio])
 	         trocaElemento(A, meio, sup);
-
+	     
 	     trocaElemento(A, meio, inf);
-
+	     
 	     pivo = inf;
 
-	    for(esq = inf, dir = sup; esq < dir; ){
+	    for(esq = inf, dir = sup - 1; ; ){
 	    	/* Enquanto os elementos forem menores do que */
 	        /* o pivô, incrementa-se o índice esquerdo    */
 	        while(A[esq] <= A[pivo] && esq < sup)
